@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "DefiWord",
+  "version": "1.0.0",
+  "description": "Cambridge Dictionary definitions for selected words — see CEFR level, IPA, audio, and examples.",
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "storage",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://dictionary.cambridge.org/*",
+    "https://api.datamuse.com/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"],
+      "css": []
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": false
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["content/content.css", "content/book-icon.png"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

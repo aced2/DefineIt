@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+  <title>DefiWord</title>
+</head>
+<body>
+  <div class="popup-header">
+    <h1><img src="../content/book-icon.png" class="header-book-icon"> DefiWord</h1>
+    <div class="popup-tabs">
+      <button class="tab-btn active" data-tab="settings">Settings</button>
+      <button class="tab-btn" data-tab="words">Words</button>
+    </div>
+  </div>
+
+  <!-- Settings tab -->
+  <div id="tab-settings" class="tab-content">
+    <div class="settings-body">
+      <section class="setting-group">
+        <h2>Trigger mode</h2>
+        <label class="radio-option">
+          <input type="radio" name="triggerMode" value="contextmenu">
+          <span><strong>Right-click menu</strong></span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="triggerMode" value="auto">
+          <span><strong>Auto popup</strong> on highlight</span>
+        </label>
+      </section>
+
+      <section class="setting-group">
+        <h2>Preferred accent</h2>
+        <label class="radio-option">
+          <input type="radio" name="accent" value="uk">
+          <span>UK (British)</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="accent" value="us">
+          <span>US (American)</span>
+        </label>
+      </section>
+
+      <section class="setting-group">
+        <h2>Max examples</h2>
+        <label class="radio-option">
+          <input type="radio" name="maxExamples" value="1">
+          <span>1</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="maxExamples" value="2">
+          <span>2</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="maxExamples" value="3">
+          <span>3</span>
+        </label>
+      </section>
+
+      <div id="settings-status" class="settings-status"></div>
+    </div>
+  </div>
+
+  <!-- Words tab -->
+  <div id="tab-words" class="tab-content" style="display:none">
+    <div class="tab-toolbar">
+      <button id="clear-all" class="clear-btn" title="Clear all saved words">Clear all</button>
+    </div>
+    <div id="word-list"></div>
+    <div id="empty-state" class="empty-state" style="display:none">
+      <p>No saved words yet</p>
+      <p class="empty-hint">Select a word on any page and save it here.</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

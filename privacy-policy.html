@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DefiWord — Privacy Policy</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #333;
+      background: #fafafa;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 36px 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    h1 {
+      font-size: 22px;
+      color: #0d47a1;
+      margin-bottom: 4px;
+    }
+    .updated {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-size: 16px;
+      color: #222;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+    p { margin-bottom: 12px; }
+    ul {
+      margin: 0 0 12px 20px;
+    }
+    li { margin-bottom: 6px; }
+    strong { color: #0d47a1; }
+    .highlight {
+      background: #e3f2fd;
+      border-left: 3px solid #0d47a1;
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    a { color: #0d47a1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>DefiWord — Privacy Policy</h1>
+    <p class="updated">Last updated: February 27, 2026</p>
+
+    <div class="highlight">
+      DefiWord does not collect, store, or transmit any personal data. Everything stays on your device.
+    </div>
+
+    <h2>What DefiWord does</h2>
+    <p>DefiWord is a browser extension that helps you look up English word definitions from Cambridge Dictionary directly on the page you are reading. It shows the definition, part of speech, CEFR level, pronunciation, and example sentences in a tooltip.</p>
+
+    <h2>Data stored locally</h2>
+    <p>The following data is stored <strong>only on your device</strong> using Chrome's built-in storage API:</p>
+    <ul>
+      <li><strong>Saved words</strong> — words you choose to bookmark, along with their definition, part of speech, and CEFR level</li>
+      <li><strong>Settings</strong> — your preferences for trigger mode, accent, and number of examples</li>
+    </ul>
+    <p>This data never leaves your browser. It is not sent to any server, analytics service, or third party.</p>
+
+    <h2>Network requests</h2>
+    <p>DefiWord makes the following network requests, solely to provide dictionary functionality:</p>
+    <ul>
+      <li><strong>dictionary.cambridge.org</strong> — to fetch the definition page for the word you look up. Only the word itself is sent as part of the URL. No cookies, tokens, or personal identifiers are included.</li>
+      <li><strong>api.datamuse.com</strong> — to fetch spelling suggestions when a word is not found. Only the searched word is sent. No personal data is included.</li>
+    </ul>
+    <p>No other network requests are made. DefiWord does not use analytics, tracking, or telemetry of any kind.</p>
+
+    <h2>Permissions and why they are needed</h2>
+    <ul>
+      <li><strong>activeTab</strong> — to read the text you select on the current page</li>
+      <li><strong>contextMenus</strong> — to add a "Look up" option to the right-click menu</li>
+      <li><strong>storage</strong> — to save your bookmarked words and settings locally</li>
+      <li><strong>offscreen</strong> — to parse dictionary HTML in the background (a technical requirement of Chrome's Manifest V3)</li>
+      <li><strong>Content script on all URLs</strong> — so the lookup tooltip can appear on any webpage you visit</li>
+    </ul>
+
+    <h2>Third-party services</h2>
+    <p>DefiWord does not integrate with any third-party services beyond the two dictionary/suggestion APIs listed above. There are no ads, no affiliate links, and no monetisation.</p>
+
+    <h2>Children's privacy</h2>
+    <p>DefiWord does not collect any data from anyone, including children. It is safe for users of all ages.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy is updated, the changes will be reflected on this page with an updated date. Since no data is collected, meaningful changes are unlikely.</p>
+
+    <h2>Contact</h2>
+    <p>If you have questions about this privacy policy, you can reach the developer at the email listed on the Chrome Web Store listing page.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="options.css">
+  <title>DefiWord — Settings</title>
+</head>
+<body>
+  <div class="options-container">
+    <h1><img src="../icons/icon32.png" class="header-book-icon"> DefiWord Settings</h1>
+
+    <section>
+      <h2>Trigger mode</h2>
+      <p class="desc">How to activate the dictionary lookup</p>
+      <label class="radio-option">
+        <input type="radio" name="triggerMode" value="contextmenu">
+        <span><strong>Right-click menu</strong> — Look up via context menu</span>
+      </label>
+      <label class="radio-option">
+        <input type="radio" name="triggerMode" value="auto">
+        <span><strong>Auto popup</strong> — Show lookup icon when text is selected</span>
+      </label>
+    </section>
+
+    <section>
+      <h2>Preferred accent</h2>
+      <p class="desc">Which pronunciation to show first</p>
+      <label class="radio-option">
+        <input type="radio" name="accent" value="uk">
+        <span>UK (British English)</span>
+      </label>
+      <label class="radio-option">
+        <input type="radio" name="accent" value="us">
+        <span>US (American English)</span>
+      </label>
+    </section>
+
+    <section>
+      <h2>Max examples per definition</h2>
+      <p class="desc">Number of example sentences shown</p>
+      <label class="radio-option">
+        <input type="radio" name="maxExamples" value="1">
+        <span>1 example</span>
+      </label>
+      <label class="radio-option">
+        <input type="radio" name="maxExamples" value="2">
+        <span>2 examples</span>
+      </label>
+      <label class="radio-option">
+        <input type="radio" name="maxExamples" value="3">
+        <span>3 examples</span>
+      </label>
+    </section>
+
+    <div id="status" class="status"></div>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>
