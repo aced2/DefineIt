@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "DefiWord",
+  "name": "Define It",
   "version": "1.0.0",
   "description": "Cambridge Dictionary definitions for selected words — see CEFR level, IPA, audio, and examples.",
   "permissions": [

@@ -7,14 +7,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Wittgenstein:ital,wght@0,400..900;1,400..900&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="popup.css">
-  <title>DefiWord</title>
+  <title>Define It</title>
 </head>
 <body>
+  <!-- Consent screen (first-time only) -->
+  <div id="consent-screen" style="display:none">
+    <div class="consent-logo">
+      <img src="../content/book-icon.png" class="consent-icon" alt="Define It">
+      <span class="consent-title">Define It</span>
+    </div>
+    <div class="consent-body">
+      <p data-i18n="consentIntro">Before you start, please review how Define It handles your data:</p>
+      <ul>
+        <li data-i18n="consentBullet1">Lookups are sent to the Cambridge Dictionary API — no personal data is collected</li>
+        <li data-i18n="consentBullet2">Saved words are stored locally in your browser</li>
+        <li data-i18n="consentBullet3">Settings sync via Chrome's built-in storage</li>
+      </ul>
+      <p class="consent-link">
+        <span data-i18n="consentReadFull">Read the full </span><a href="https://aced2.github.io/DefiWord/privacy-policy.html" target="_blank" data-i18n="consentPrivacyPolicy">Privacy Policy</a>
+      </p>
+      <label class="consent-checkbox">
+        <input type="checkbox" id="consent-agree">
+        <span data-i18n="consentAgreeLabel">I have read and agree to the Privacy Policy</span>
+      </label>
+      <button id="consent-continue" class="consent-btn" disabled data-i18n="consentContinue">Continue</button>
+    </div>
+  </div>
+
+  <!-- Main app (hidden until consent is given) -->
+  <div class="main-app" style="display:none">
   <div class="popup-header">
-    <h1><img src="../content/book-icon.png" class="header-book-icon"> DefiWord</h1>
+    <h1><img src="../content/book-icon.png" class="header-book-icon"> Define It</h1>
     <div class="popup-tabs">
-      <button class="tab-btn active" data-tab="settings">Settings</button>
-      <button class="tab-btn" data-tab="words">Words</button>
+      <button class="tab-btn active" data-tab="settings" data-i18n="tabSettings">Settings</button>
+      <button class="tab-btn" data-tab="words" data-i18n="tabWords">Words</button>
     </div>
   </div>
 
@@ -22,31 +48,31 @@
   <div id="tab-settings" class="tab-content">
     <div class="settings-body">
       <section class="setting-group">
-        <h2>Trigger mode</h2>
+        <h2 data-i18n="settTrigger">Trigger mode</h2>
         <label class="radio-option">
           <input type="radio" name="triggerMode" value="contextmenu">
-          <span><strong>Right-click menu</strong></span>
+          <span><strong data-i18n="settRightClick">Right-click menu</strong></span>
         </label>
         <label class="radio-option">
           <input type="radio" name="triggerMode" value="auto">
-          <span><strong>Auto popup</strong> on highlight</span>
+          <span><strong data-i18n="settAutoPopup">Auto popup</strong><span data-i18n="settAutoPopupSuffix"> on highlight</span></span>
         </label>
       </section>
 
       <section class="setting-group">
-        <h2>Preferred accent</h2>
+        <h2 data-i18n="settAccent">Preferred accent</h2>
         <label class="radio-option">
           <input type="radio" name="accent" value="uk">
-          <span>UK (British)</span>
+          <span data-i18n="settUK">UK (British)</span>
         </label>
         <label class="radio-option">
           <input type="radio" name="accent" value="us">
-          <span>US (American)</span>
+          <span data-i18n="settUS">US (American)</span>
         </label>
       </section>
 
       <section class="setting-group">
-        <h2>Max examples</h2>
+        <h2 data-i18n="settMaxExamples">Max examples</h2>
         <label class="radio-option">
           <input type="radio" name="maxExamples" value="1">
           <span>1</span>
@@ -61,21 +87,149 @@
         </label>
       </section>
 
+      <section class="setting-group">
+        <h2 data-i18n="settLanguage">Language</h2>
+        <label class="radio-option">
+          <input type="radio" name="language" value="en">
+          <span>English</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="language" value="ru">
+          <span>Русский</span>
+        </label>
+      </section>
+
       <div id="settings-status" class="settings-status"></div>
     </div>
   </div>
 
   <!-- Words tab -->
   <div id="tab-words" class="tab-content" style="display:none">
+    <!-- Quiz screen (inside Words tab) -->
+    <div id="quiz-screen" style="display:none">
+      <!-- Mode picker -->
+      <div id="quiz-mode-picker">
+        <h2 class="quiz-heading" data-i18n="quizChooseMode">Choose a mode</h2>
+        <div class="quiz-modes">
+          <button class="quiz-mode-btn" data-mode="flashcard">
+            <span class="quiz-mode-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/>
+                <path d="M9 7h6M9 11h4"/>
+              </svg>
+            </span>
+            <span class="quiz-mode-name" data-i18n="quizFlashcard">Flashcard</span>
+            <span class="quiz-mode-desc" data-i18n="quizFlashcardDesc">Flip to reveal</span>
+          </button>
+          <button class="quiz-mode-btn" data-mode="mc">
+            <span class="quiz-mode-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <text x="4" y="8.5" font-size="7" font-weight="700" fill="currentColor" stroke="none" font-family="sans-serif">A</text>
+                <text x="4" y="15.5" font-size="7" font-weight="700" fill="currentColor" stroke="none" font-family="sans-serif">B</text>
+                <text x="4" y="22.5" font-size="7" font-weight="700" fill="currentColor" stroke="none" font-family="sans-serif">C</text>
+                <line x1="14" y1="6" x2="21" y2="6"/>
+                <line x1="14" y1="13" x2="21" y2="13"/>
+                <line x1="14" y1="20" x2="21" y2="20"/>
+                <circle cx="11.5" cy="6" r="1.5"/>
+                <circle cx="11.5" cy="13" r="1.5" fill="currentColor"/>
+                <circle cx="11.5" cy="20" r="1.5"/>
+              </svg>
+            </span>
+            <span class="quiz-mode-name" data-i18n="quizMC">Multiple Choice</span>
+            <span class="quiz-mode-desc" data-i18n="quizMCDesc">Pick the right word</span>
+          </button>
+          <button class="quiz-mode-btn" data-mode="typeit">
+            <span class="quiz-mode-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <rect x="5" y="8" width="2" height="2" rx="0.4" fill="currentColor" stroke="none"/>
+                <rect x="9" y="8" width="2" height="2" rx="0.4" fill="currentColor" stroke="none"/>
+                <rect x="13" y="8" width="2" height="2" rx="0.4" fill="currentColor" stroke="none"/>
+                <rect x="17" y="8" width="2" height="2" rx="0.4" fill="currentColor" stroke="none"/>
+                <rect x="6" y="12" width="2" height="2" rx="0.4" fill="currentColor" stroke="none"/>
+                <rect x="10" y="12" width="2" height="2" rx="0.4" fill="currentColor" stroke="none"/>
+                <rect x="14" y="12" width="2" height="2" rx="0.4" fill="currentColor" stroke="none"/>
+                <rect x="8" y="16" width="8" height="1.5" rx="0.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            <span class="quiz-mode-name" data-i18n="quizTypeIt">Type It</span>
+            <span class="quiz-mode-desc" data-i18n="quizTypeItDesc">Spell it out</span>
+          </button>
+        </div>
+        <button id="quiz-back-modes" class="quiz-link-btn" data-i18n="quizBackToWords">&larr; Back to Words</button>
+      </div>
+
+      <!-- Quiz play area -->
+      <div id="quiz-play" style="display:none">
+        <div class="quiz-progress">
+          <div class="quiz-progress-bar"><div class="quiz-progress-fill"></div></div>
+          <span class="quiz-progress-text"></span>
+        </div>
+
+        <!-- Flashcard mode -->
+        <div id="quiz-flashcard" class="quiz-card-area" style="display:none">
+          <div class="flashcard" id="flashcard">
+            <div class="flashcard-inner">
+              <div class="flashcard-front">
+                <span class="flashcard-word"></span>
+                <span class="flashcard-hint" data-i18n="quizTapFlip">Tap to flip</span>
+              </div>
+              <div class="flashcard-back">
+                <span class="flashcard-pos"></span>
+                <span class="flashcard-def"></span>
+              </div>
+            </div>
+          </div>
+          <div class="quiz-nav-row">
+            <button class="quiz-prev-btn" id="flashcard-prev" data-i18n="quizBack">&larr; Back</button>
+            <button class="quiz-next-btn" data-i18n="quizNext">Next &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Multiple Choice mode -->
+        <div id="quiz-mc" class="quiz-card-area" style="display:none">
+          <p class="quiz-prompt"></p>
+          <div class="mc-options"></div>
+        </div>
+
+        <!-- Type-it mode -->
+        <div id="quiz-typeit" class="quiz-card-area" style="display:none">
+          <p class="quiz-prompt"></p>
+          <div class="typeit-input-row">
+            <input type="text" id="typeit-input" class="typeit-input" data-i18n-placeholder="quizTypePlaceholder" placeholder="Type the word..." autocomplete="off">
+            <button id="typeit-submit" class="typeit-submit-btn" data-i18n="quizCheck">Check</button>
+          </div>
+          <div class="typeit-feedback"></div>
+        </div>
+      </div>
+
+      <!-- Results screen -->
+      <div id="quiz-results" style="display:none">
+        <h2 class="quiz-heading" id="quiz-results-title"></h2>
+        <p class="quiz-results-score" id="quiz-results-score"></p>
+        <div class="quiz-results-actions">
+          <button id="quiz-again" class="quiz-btn-primary" data-i18n="quizPlayAgain">Play Again</button>
+          <button id="quiz-exit" class="quiz-link-btn" data-i18n="quizBackToWords">Back to Words</button>
+        </div>
+      </div>
+    </div>
+
     <div class="tab-toolbar">
-      <button id="clear-all" class="clear-btn" title="Clear all saved words">Clear all</button>
+      <button id="start-quiz" class="quiz-start-btn" data-i18n="quizBtn" data-i18n-title="quizBtnTitle" title="Quiz your saved words">Quiz</button>
+      <button id="clear-all" class="clear-btn" data-i18n="clearAll" data-i18n-title="clearAllTitle" title="Clear all saved words">Clear all</button>
     </div>
     <div id="word-list"></div>
     <div id="empty-state" class="empty-state" style="display:none">
-      <p>No saved words yet</p>
-      <p class="empty-hint">Select a word on any page and save it here.</p>
+      <p data-i18n="emptyTitle">No saved words yet</p>
+      <p class="empty-hint" data-i18n="emptyHint">Select a word on any page and save it here.</p>
     </div>
   </div>
+
+  <div class="popup-footer">
+    <span data-i18n="footerContact">If you have any problems or questions, please contact us — </span><a href="mailto:defiwordsup@gmail.com">defiwordsup@gmail.com</a>
+  </div>
+  </div><!-- /.main-app -->
 
   <script src="popup.js"></script>
 </body>

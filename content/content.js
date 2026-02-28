@@ -462,18 +462,56 @@
     return d.innerHTML;
   }
 
-  // --- Subtitle word lookup (Netflix, YouTube, Disney+, Amazon Prime) ---
-  // Strategy: use Range objects on the actual subtitle text nodes to get exact
-  // word positions, then create invisible hover-target divs at those positions.
-  // No DOM modification of subtitle elements, no caretRangeFromPoint.
+  // --- Subtitle word lookup (streaming platforms) ---
+  // Strategy: detect the platform, use its known subtitle selectors,
+  // create invisible hover-target divs at exact word positions via Range objects.
 
-  const SUBTITLE_SELS = [
-    '.player-timedtext-text-container',
-    '.player-timedtext',
-    '.ytp-caption-window-container',
-    '[class*="captions-text"]'
+  const PLATFORMS = [
+    {
+      name: 'Netflix',
+      hostname: /netflix\.com/i,
+      selectors: ['.player-timedtext-text-container', '.player-timedtext']
+    },
+    {
+      name: 'YouTube',
+      hostname: /youtube\.com|youtube-nocookie\.com/i,
+      selectors: ['.captions-text', '.caption-visual-line', '#ytp-caption-window-container']
+    },
+    {
+      name: 'Amazon Prime',
+      hostname: /primevideo\.com|amazon\./i,
+      selectors: ['.atvwebplayersdk-captions-text', '.persistentPanel']
+    },
+    {
+      name: 'Max',
+      hostname: /max\.com|hbomax\.com/i,
+      selectors: ['[data-testid="CueBoxContainer"]']
+    },
+    {
+      name: 'Disney+',
+      hostname: /disneyplus\.com/i,
+      selectors: ['.hive-subtitle-renderer-line', '.shaka-text-container', '.dss-subtitle-renderer-line', '.TimedTextOverlay']
+    },
+    {
+      name: 'Hulu',
+      hostname: /hulu\.com/i,
+      selectors: ['.CaptionBox', '.ClosedCaption', '#inband-closed-caption']
+    },
+    {
+      name: 'Paramount+',
+      hostname: /paramountplus\.com/i,
+      selectors: ['.shaka-text-container']
+    },
+    {
+      name: 'Peacock',
+      hostname: /peacocktv\.com/i,
+      selectors: ['[data-t-subtitles=true]', '[data-t=subtitles]']
+    }
   ];
-  const isVideoPlatform = /netflix\.com|youtube\.com|disneyplus\.com|primevideo\.com/i.test(location.hostname);
+
+  // Detect current platform
+  const currentPlatform = PLATFORMS.find(p => p.hostname.test(location.hostname));
+  const isVideoPlatform = !!currentPlatform;
 
   let hoverZones = [];
   let activeSubContainer = null;
@@ -481,7 +519,8 @@
   let zoneUpdatePending = false;
 
   function findSubContainer() {
-    for (const sel of SUBTITLE_SELS) {
+    if (!currentPlatform) return null;
+    for (const sel of currentPlatform.selectors) {
       const el = document.querySelector(sel);
       if (el) return el;
     }
@@ -554,7 +593,7 @@
       if (timer) { clearTimeout(timer); timer = null; }
     });
 
-    // Let clicks pass through to Netflix player (pause/unpause)
+    // Let clicks pass through to the video player (pause/unpause)
     z.addEventListener('click', (e) => {
       z.style.pointerEvents = 'none';
       const below = document.elementFromPoint(e.clientX, e.clientY);
@@ -599,7 +638,6 @@
     if (shadowHost) {
       getOverlayParent().appendChild(shadowHost);
     }
-    // Rebuild zones so they're inside the fullscreen element
     if (isVideoPlatform) {
       rebuildHoverZones();
     }

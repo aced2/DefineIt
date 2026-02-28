@@ -50,6 +50,19 @@ function toSlug(word) {
 }
 
 async function lookupWord(word) {
+  // Easter egg
+  if (word.trim().toLowerCase() === 'defiword') {
+    return {
+      found: true,
+      headword: 'DefiWord',
+      url: 'https://github.com/aced2/DefiWord',
+      entries: [{
+        pos: '', cefr: '', ukIPA: '', usIPA: '', ukAudio: '', usAudio: '',
+        senses: [{ definition: 'Your assistant in learning English, happy to serve :)', examples: [] }]
+      }]
+    };
+  }
+
   const slug = toSlug(word);
   try {
     let result = await fetchAndParse(slug);
