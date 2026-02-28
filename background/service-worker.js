@@ -55,7 +55,7 @@ async function lookupWord(word) {
     return {
       found: true,
       headword: 'DefiWord',
-      url: 'https://github.com/aced2/DefiWord',
+      url: 'https://github.com/aced2/DefineIt',
       entries: [{
         pos: '', cefr: '', ukIPA: '', usIPA: '', ukAudio: '', usAudio: '',
         senses: [{ definition: 'Your assistant in learning English, happy to serve :)', examples: [] }]
